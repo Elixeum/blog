@@ -14,9 +14,9 @@ As this blog is based on Jekyll - various parts of it can be modified and change
 
 Following tools needs to be installed on your development machine:
 - Ruby
- - Tested with Ruby 3.1.* on macOS installed using [Homebrew](https://brew.sh)
- - `brew install ruby`
- - Don't forget to add new Ruby to `PATH`, as Homebrew will not do this due bundled macOS version of Ruby
+  - Tested with Ruby 3.1.* on macOS installed using [Homebrew](https://brew.sh)
+  - `brew install ruby`
+  - Don't forget to add new Ruby to `PATH`, as Homebrew will not do this due bundled macOS version of Ruby
 
 ## Start Local Instance
 
