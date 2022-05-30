@@ -5,6 +5,7 @@ categories:
   - update
 tags:
   - team
+toc: false
 ---
 
 We have been dreaming about this since we started with our first line of code - creating a blog and sharing our experiences and issues which we have encountered during our journey! So welcome to our blog and we hope you will find our posts useful or at least funny 😄

@@ -6,11 +6,14 @@ description: >-
 github_username: Elixeum
 minimal_mistakes_skin: contrast
 search: true
+url: https://tech.elixeum.com
+logo: "/assets/images/logo.png"
 
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
 excerpt_separator: "<!--more-->"
+repository: Elixeum/blog
 
 # Outputting
 permalink: /post/:title:output_ext
@@ -31,7 +34,7 @@ plugins:
 
 author:
   name   : "Elixeum"
-  avatar : "/assets/images/logo.png"
+  #avatar : "/assets/images/logo.png"
   bio    : "Tech blog to share our findings, ideas, and solutions to problems that we have encountered during our journey 🤖 🤓"
   links:
     - label: "Website"
