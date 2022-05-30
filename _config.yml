@@ -12,7 +12,6 @@ logo: "/assets/images/logo.png"
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
-excerpt_separator: "<!--more-->"
 repository: Elixeum/blog
 
 # Outputting
@@ -20,6 +19,9 @@ permalink: /post/:title:output_ext
 paginate: 10
 paginate_path: /page:num/
 timezone: Europe/Prague # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+locale: "en-US"
+excerpt_separator: "<!--more-->"
+breadcrumbs: true
 
 include:
   - _pages
@@ -36,6 +38,7 @@ author:
   name   : "Elixeum"
   #avatar : "/assets/images/logo.png"
   bio    : "Tech blog to share our findings, ideas, and solutions to problems that we have encountered during our journey 🤖 🤓"
+  location: "Zlín, Czech Republic"
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
