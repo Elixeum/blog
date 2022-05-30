@@ -1,7 +1,7 @@
 title: Elixeum Tech Blog
 email: hello@elixeum.com
 description: >-
-  Technical blog from Elixeum development team, sharing our findings, ideas and solutions to problems which we have encountered.
+  A technical blog from the Elixeum development team, sharing our findings, ideas, and solutions to problems that we have encountered.
 #twitter_username: Elixeum
 github_username: Elixeum
 minimal_mistakes_skin: contrast
@@ -32,7 +32,7 @@ plugins:
 author:
   name   : "Elixeum"
   avatar : "/assets/images/logo.png"
-  bio    : "Tech blog to share our findings, ideas and solutions to problems which we have encountered during our journey 🤖 🤓"
+  bio    : "Tech blog to share our findings, ideas, and solutions to problems that we have encountered during our journey 🤖 🤓"
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
