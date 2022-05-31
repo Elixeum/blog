@@ -48,7 +48,7 @@ GRANT CREATE, USAGE ON SCHEMA public TO skywalking;
 
 And everything started from this point...
 
-![So it begins](https://i.pinimg.com/originals/af/68/d2/af68d2d9baebbdf26c2cea10e087c048.gif)
+![So it begins](https://i.pinimg.com/originals/af/68/d2/af68d2d9baebbdf26c2cea10e087c048.gif "I have pretty much felt like this")
 
 ## Extensions are lost
 Dropping the `public` schema also drops the every created extension inside it. And as we use `public` schema to store all global extensions for all services using `search_path = "service-ID", "public"` that means **ALL services now lost access to most important functions** like `uuid_generate_v4()` to generate UUIDs for our items in the database.
@@ -65,7 +65,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA public;
 
 And yet - everything was in flames still...
 
-![This is fine](https://media.tenor.co/images/0d1329f5ff7d31712e3d12ce160df6ec/raw)
+![This is fine](https://media.tenor.co/images/0d1329f5ff7d31712e3d12ce160df6ec/raw "Couldn't say the other team members felt the same")
 
 ## What next?
 Another issue that arose was - errors about setting `NULL` into `NOT NULL` columns. This was weird as that particular column used the `uuid_generate_v4()` function and it is impossible for that function to return just `NULL`. And also - if the `uuid_generate_v4()` would be undefined the error should say that instead of complaining about `NULL`.
@@ -74,7 +74,7 @@ First, we thought the services which were running still kept "old reference" to 
 
 So we have tried the all-time best solution - have you tried to **turn it off and on again**? Yet still - nothing 🥲
 
-![Off/On solution](https://media.giphy.com/media/F7yLXA5fJ5sLC/giphy.gif)
+![Off/On solution](https://media.giphy.com/media/F7yLXA5fJ5sLC/giphy.gif "The ultimate solution to any IT issues failed us")
 
 Now we have started comparing table structures from other environments with this one and we found something really weird. We have found out the `default expression` is missing for some columns (and those columns can't be `NULL`), not only to just "some" but to all columns which used `uuid_generate_v4()` function as the default value.
 
