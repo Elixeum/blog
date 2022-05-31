@@ -46,14 +46,14 @@ GRANT CREATE, USAGE ON SCHEMA public TO public;
 GRANT CREATE, USAGE ON SCHEMA public TO skywalking;
 ```
 
-And everything started from this point.
+And everything started from this point...
 
 ![So it begins](https://i.pinimg.com/originals/af/68/d2/af68d2d9baebbdf26c2cea10e087c048.gif)
 
 ## Extensions are lost
-Dropping the `public` schema also drops the every created extension inside it. And as we use `public` schema to store all global extensions for all services using `search_path = "service-ID", "public"` that means ALL services now lost access to most important functions like `uuid_generate_v4()` to generate UUIDs for our items in the database.
+Dropping the `public` schema also drops the every created extension inside it. And as we use `public` schema to store all global extensions for all services using `search_path = "service-ID", "public"` that means **ALL services now lost access to most important functions** like `uuid_generate_v4()` to generate UUIDs for our items in the database.
 
-> We use UUID v4 (GUID if you want to) as the primary globally unique key for records that needs ID. It still has some cons and prons - but leave this for another post 🙂
+> We use UUIDv4 (GUID if you want to) as the primary globally unique key for records that needs ID. It still has some cons and prons - but leave this for another post 🙂
 
 Well, panic intensified - we needed to create our extensions again, which again is a pretty simple SQL query for example like this.
 
@@ -63,18 +63,20 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto" SCHEMA public;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA public;
 ```
 
-And yet - everything was in flames still.
+And yet - everything was in flames still...
 
 ![This is fine](https://media.tenor.co/images/0d1329f5ff7d31712e3d12ce160df6ec/raw)
 
 ## What next?
-Another issue that arose was - errors about setting `NULL` into `NOT NULL` columns. This was weird as that particular column used the `uuid_generate_v4()` function and it is impossible for that function to return just `NULL`.
+Another issue that arose was - errors about setting `NULL` into `NOT NULL` columns. This was weird as that particular column used the `uuid_generate_v4()` function and it is impossible for that function to return just `NULL`. And also - if the `uuid_generate_v4()` would be undefined the error should say that instead of complaining about `NULL`.
 
-First, we thought the services which were running still kept "old reference" to the `public` schema. Because the `public` destruction happened during API services lifetime and only SkyWalking was down at that moment.
+First, we thought the services which were running still kept "old reference" to the `public` schema (I know it was a bit stretch in panic theory). Because the `public` destruction happened during API services lifetime and only SkyWalking was down at that moment.
 
-So we have tried the all-time best solution - did you try to turn it off and on again? Yet still - nothing 🥲
+So we have tried the all-time best solution - have you tried to **turn it off and on again**? Yet still - nothing 🥲
 
-Now we have started comparing table structures from other environments with this one and we found something really weird. We have found out the `default expression` is missing for some columns (and those columns can't be `NULL`), not only to just "some" to all columns which used `uuid_generate_v4()` function as the default value.
+![Off/On solution](https://media.giphy.com/media/F7yLXA5fJ5sLC/giphy.gif)
+
+Now we have started comparing table structures from other environments with this one and we found something really weird. We have found out the `default expression` is missing for some columns (and those columns can't be `NULL`), not only to just "some" but to all columns which used `uuid_generate_v4()` function as the default value.
 
 # Gotcha!
 Finally, we had the root cause of this weird issue - dropping extensions removed all default values which used functions from those extensions.
