@@ -5,3 +5,11 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#332357">
 <link rel="manifest" href="/assets/site.webmanifest">
+
+<!-- Dark mode -->
+{% if site.minimal_mistakes_skin_dark %}
+  <meta name="color-scheme" content="light dark">
+  <style>
+    @import url("{{ '/assets/css/main_dark.css' | relative_url }}") (prefers-color-scheme: dark);
+  </style>
+{% endif %}

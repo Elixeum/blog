@@ -5,6 +5,7 @@ description: >-
 #twitter_username: Elixeum
 github_username: Elixeum
 minimal_mistakes_skin: contrast
+minimal_mistakes_skin_dark: "dark"
 search: true
 url: https://tech.elixeum.com
 logo: "/assets/images/logo.png"
@@ -50,6 +51,9 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Elixeum"
+    - label: "Instagram"
+      icon: "fab fa-fw fa-instagram-square"
+      url: "https://www.instagram.com/elixeum_com"
 
 footer:
   links:
@@ -59,6 +63,9 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Elixeum"
+    - label: "Instagram"
+      icon: "fab fa-fw fa-instagram"
+      url: "https://www.instagram.com/elixeum_com"
 
 defaults:
   # _posts

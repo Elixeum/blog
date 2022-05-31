@@ -8,5 +8,5 @@ $elx-primary: rgb(51, 35, 87);
 $primary-color: $elx-primary !default;
 $link-color: $elx-primary !default;
 
-@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
-@import "minimal-mistakes"; // main partials
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
+@import "minimal-mistakes";

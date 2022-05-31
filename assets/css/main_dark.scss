@@ -1,0 +1,19 @@
+---
+search: false
+---
+
+@charset "utf-8";
+
+$elx-primary: rgb(51, 35, 87);
+$elx-primary-dark: rgb(245, 245, 245);
+$primary-color: $elx-primary-dark !default;
+$link-color: $elx-primary-dark !default;
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin_dark | default: 'dark' }}";
+
+// Hack to fix TOC header in current implementation of dark mode
+.toc .nav__title {
+    background: $elx-primary !important;
+}
+
+@import "minimal-mistakes";
