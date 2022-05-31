@@ -100,7 +100,7 @@ WHERE
   AND column_default = 'uuid_generate_v4()';
 ```
 
-Now we have "full path" to the table and its column name which use the generated UUID. Now simply we can save the result as CSV and write a very simple CSV parse to generate `ALTER` queries to set a default value, like this.
+Now we have "full path" to the table and its column name which use the generated UUID. Now simply we can save the result as CSV and write a very simple CSV parser (I used JavaScript using Node and some ugly "CSV" parser hacky code) to generate `ALTER` queries to set a default value, like this.
 
 ```sql
 ALTER TABLE root.service_schema."Table" ALTER COLUMN "Id" SET DEFAULT uuid_generate_v4();
