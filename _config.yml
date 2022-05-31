@@ -22,6 +22,7 @@ timezone: Europe/Prague # https://en.wikipedia.org/wiki/List_of_tz_database_time
 locale: "en-US"
 excerpt_separator: "<!--more-->"
 breadcrumbs: true
+words_per_minute: 150
 
 include:
   - _pages
