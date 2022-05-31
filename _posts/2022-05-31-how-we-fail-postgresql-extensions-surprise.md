@@ -70,7 +70,7 @@ And yet - everything was in flames still...
 ## What next?
 Another issue that arose was - errors about setting `NULL` into `NOT NULL` columns. This was weird as that particular column used the `uuid_generate_v4()` function and it is impossible for that function to return just `NULL`. And also - if the `uuid_generate_v4()` would be undefined the error should say that instead of complaining about `NULL`.
 
-First, we thought the services which were running still kept "old reference" to the `public` schema (I know it was a bit stretch in panic theory). Because the `public` destruction happened during API services lifetime and only SkyWalking was down at that moment.
+First, we thought the services which were running (during the schema drop) still kept "old reference" to the `public` schema (I know it was a bit stretch in panic theory). Because the `public` destruction happened during API services lifetime and only SkyWalking was down at that moment.
 
 So we have tried the all-time best solution - have you tried to **turn it off and on again**? Yet still - nothing 🥲
 
