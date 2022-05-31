@@ -68,7 +68,7 @@ And yet - everything was in flames still...
 ![This is fine](https://media.tenor.co/images/0d1329f5ff7d31712e3d12ce160df6ec/raw "Couldn't say the other team members felt the same")
 
 ## What next?
-Another issue that arose was - errors about setting `NULL` into `NOT NULL` columns. This was weird as that particular column used the `uuid_generate_v4()` function and it is impossible for that function to return just `NULL`. And also - if the `uuid_generate_v4()` would be undefined the error should say that instead of complaining about `NULL`.
+Another issue that arose was - errors about setting `NULL` into `NOT NULL` columns. This was weird as that particular column used the `uuid_generate_v4()` function as `DEFAULT` value and it is impossible for that function to return just `NULL`. And also - if the `uuid_generate_v4()` would be undefined the error should say that instead of complaining about `NULL`.
 
 First, we thought the services which were running (during the schema drop) still kept "old reference" to the `public` schema (I know it was a bit stretch in panic theory). Because the `public` destruction happened during API services lifetime and only SkyWalking was down at that moment.
 
