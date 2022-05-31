@@ -16,7 +16,7 @@ Yes making a fatal mistake on **production** is serious and can affect our clien
 
 > Our production environment is thoroughly backed-up in two separate places and we have been testing recovery periodically.
 
-But as I said - mistakes happen and today I like to talk about the *small* mistake which happened during our internal alpha release which pretty much broke the whole environment for a few hours before we found out what was the roof of the cause 😨
+But as I said - mistakes happen and today I like to talk about the *small* mistake which happened during our internal alpha release which pretty much broke the whole environment for a few hours before we found out what was the root of the cause 😨
 <!--more-->
 
 # What happened?
