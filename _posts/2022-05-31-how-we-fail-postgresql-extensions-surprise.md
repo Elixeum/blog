@@ -51,7 +51,7 @@ And everything started from this point.
 ![So it begins](https://i.pinimg.com/originals/af/68/d2/af68d2d9baebbdf26c2cea10e087c048.gif)
 
 ## Extensions are lost
-Dropping the `public` schema also drops the all-created extensions inside it. And as we use `public` schema to store all global extensions for all services using `search_path = "service-ID", "public"` that means ALL services now lost access to most important functions like `uuid_generate_v4()` to generate UUIDs for our items in the database.
+Dropping the `public` schema also drops the every created extension inside it. And as we use `public` schema to store all global extensions for all services using `search_path = "service-ID", "public"` that means ALL services now lost access to most important functions like `uuid_generate_v4()` to generate UUIDs for our items in the database.
 
 > We use UUID v4 (GUID if you want to) as the primary globally unique key for records that needs ID. It still has some cons and prons - but leave this for another post 🙂
 
