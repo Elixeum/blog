@@ -12,7 +12,7 @@ tags:
 toc: true
 ---
 
-When the work on Elixeum portal began, every **Vue** component used to handle its own requests by itself, that ususally meant that every list component had locally implemented API call to count, to list with paging options and at least to delete request for specific element of said list. And every detail component had all of the CRUD API calls integrated into it as well.
+A short view back to the past - when the work on Elixeum portal began, every **Vue** component used to handle its own requests by itself, that ususally meant that every list component had locally implemented API call to count, to list with paging options and at least to delete request for specific element of said list. And every detail component had all of the CRUD API calls integrated into it as well.
 
 **This quickly proved to be unsustainable** as large chunks of code were being copy/pasted across many components, sometimes even without changing a single bit of code - and that's without even mentioning that we had to pass all the data across components using props so that we can at least partially minimise amount of load being pushed against the server.
 
@@ -44,9 +44,19 @@ And then in some cases, they will perhaps perform something more specific, but m
 
 What would a Jedi do? Well, apart from destroying the Death Star again... they would try to figure out how to create a template of sorts for the states that share a lot of the same logic. And they would think to themselves - oh look, some of our shared codebases come from modularized npm packages, let's put it in there and implement the package across the whole codebase, that's going to be great! Even if it comes at the cost of slowly migrating most of the already existing state logic to this templated code.
 
-> At the end of day, every UI modules registers it's own state files, they can be named anything the developer might find fitting, so why not go this route?
+> At the end of day, every UI module registers it's own state files, they can be named anything the developer might find fitting, so why not go this route?
 
-All you have to do is to pass the templated code metadata that identifies endpoints to call, how the state should be registered and named - and if there is anything extra, what's to stop you from just using Javascript's fancy spread operator to extend an existing state (at the end of the day, it's just an object) with your custom logic? That's right - nothing.
+All you have to do is to pass the templated code metadata that identifies endpoints to call, how the state should be registered and named - and if there is anything extra, what's to stop you from just using Javascript's fancy spread operator to extend an existing state (it's just an object) with your custom logic? That's right - nothing.
+
+# State factory giveth and state factory taketh away
+
+And so we created a factory for states that constructs entire state handling - for basic lists and CRUD you literally only have to pass it API paths to call, as well as parameters it should inject into the URL from provided payloads.
+
+This provides us with major savings when it comes to amount of code we have to write whenever we create new state - for the most basic states we went from approx 150 lines to approx 30, for the more complex ones with custom logic and extra endpoints we went from approx 350 to 200 - not as huge, but still a saving. And quite frankly - most states really only handle basic list + CRUD functionality, the savings are actually pretty major.
+
+> Saving time pleases management, saving lines of code and headaches pleases developers - everybody is happy then, yes? Most of the time, yeah.
+
+Issues with generic approach eventually bite you back when you need to perform something very custom and in these cases we found out that it's just easier to let you extend and/or override the generated state logic, rather than trying to figure out a parameter name and where to put one more _if branch_. And as we talked about it in the previous part, Javascript lets you do just that - so we decided to embrace it! Mostly because we just couldn't come up with more parameter names though... for sure. 🤓
 
 # Return of the responsibility
 
@@ -56,4 +66,31 @@ You see, for some time it seemed like a great idea to just have every component 
 
 You seemingly have 90% of your work already done on UI side, all it takes is an _if_ here and _if_ there - and bam, in 2 hours you're done... until that component requires you to use a different endpoint with some difference in data structure - and it breaks apart completely.
 
-# Summary
+![Change request](https://media.makeameme.org/created/brace-yourselves-a-7nqouc.jpg "Change requests are always fun!")
+
+And then when you finally test out changes in the target UI component, it works amazingly well, so you're satisfied with the result, open a PR and set the task to Done... until next day your favorite QA engineer is setting Slack on fire while informing everybody that something completely different broke. Sometimes it's more obvious, sometimes it requires investigation who might get the blame - still though, these changes you wrote and commited bite you back. Why is that? Well, if the state handles a lot of extra logic that is specific to a certain UI component, you must not approach it as something global.
+
+> If you're dispatching actions to other states than the one dispatching them, it's most likely that creating a separate file that will perform this is better approach.
+
+Good indicator for when to put logic into component specific state is when you have multiple states that depend on each other. Let's say we have a more complex UI component that contains many other components with different data sources. Updating one source requires you to also update other one, and then maybe another one in different case.
+
+Handling this inside your component directly isn't really feasible if you need to trigger different behaviors in different situations, unless you want to go crazy with $refs and bloat your "parent" component with data handling logic.
+
+The other way might be some form of god-state that handles all of these things in one, but then again some of these child components might be used elsewhere, and that includes their states. Remember, we are trying to minimize amount of copy pasting.
+
+So that lead us to creating component specific states that handle the core logic and dispatch required actions to its own child states - which are different instances than the generic ones, so you have no overlap with the same component that is used elsewhere - and you get the readability of almost switch-case behavior in some situations. And when a component needs to decide which states to dispatch actions to, you can always tell it through Vue props. Lovely.
+
+# Takeaways
+
+There is no universal truth, but the core principles remain the same across teams and people:
+
+- Do the absolute maximum to prevent copy-pasting of code
+- When you copy-paste code too much, instead figure out way to go around it, e.g. using factories
+- Write code with clear responsibility separation
+- Write states with clear responsibility separation (this isn't the same as point above)
+- Never start implementing specific scenarios into places that are obviosuly meant to be global and generic
+- Don't go crazy when implementing change requests, prevent craziness from the start by separating overlapping complex states
+
+> Copy leads to paste. Paste leads to hate. Hate leads to suffering.
+
+Seems simple enough, but going down the copy-paste dark path is always tempting and we should try our best to avoid it, even if it provides simple temporary solutions.
