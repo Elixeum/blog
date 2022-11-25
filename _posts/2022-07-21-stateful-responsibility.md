@@ -1,6 +1,6 @@
 ---
 title: "Stateful responsibility"
-date: 2022-05-31T13:35:53+02:00
+date: 2022-11-25T15:40:52+02:00
 categories:
   - frontend
 tags:
