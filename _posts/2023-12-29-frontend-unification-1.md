@@ -1,4 +1,17 @@
-# Frontend unification (Pt. 1)
+---
+title: "Frontend unification (Pt. 1)"
+date: 2023-12-29T18:00:00+02:00
+categories:
+  - frontend
+tags:
+  - frontend
+  - vue
+  - vite
+  - webpack
+  - yarn
+  - npm
+toc: true
+---
 
 First part of shorter series of blogposts about major refactoring of our frontend technological stack to solution that seems very obvious now, but really didn't three years ago. Going by memories and rather big pile of notes we wrote down while working on this fun endeavour...
 
